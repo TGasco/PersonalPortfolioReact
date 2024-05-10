@@ -1,0 +1,54 @@
+/* Stylesheet for NavBar component */
+
+
+.navbar {
+  /* Remove list styles */
+  /* list-style-type: none;
+  display: flex; /* This will make the list items display inline */
+  /* flex-direction: row; This will align the items in a row */
+  /* justify-content: space-around; This will distribute the items evenly */
+  height: 50px;
+  width: 100%;
+  background-color: #1d212acc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  display: flex; /* Add this to make the navbar a flex container */
+  align-items: center; /* Add this to vertically center the items */
+  transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .navbar ul {
+  display: flex; /* This will make the list items display inline */
+  flex-direction: row; /* This will align the items in a row */
+  justify-content: flex-end; /* This will align the items to the right */
+  align-items: center; /* This will vertically align the items in the middle */
+  list-style-type: none; /* Remove list styles */
+  padding: 0 20px; /* Add 20px padding to the right */
+  margin: 0; /* Remove margin */
+  gap: 30px; /* Add space between items */
+  }
+  
+  .navbar li {
+  /* Style your list items here */
+  display: flex;
+  
+  }
+  
+  .navbar a {
+  text-decoration: none;
+  color: #7fffd4;
+  transition: color 0.15s ease-in-out;
+  }
+  
+  .navbar a:hover {
+  color: #61dafb;
+  }
+
+.shadow {
+    /* Drop shadow below navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* border-bottom: 2px #61dafb; */
+  }
