@@ -1,0 +1,172 @@
+
+.project {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    max-height: max-content;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.project-content {
+    display: flex;
+    position: relative;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.project-title {
+    transition: all 0.2s ease-in-out;
+}
+
+.project-title:hover {
+    color: #7fffd4;
+}
+
+.project-img, .text-content {
+    flex: 1;
+    /* max-width: 50%; */
+    /* height: auto; */
+}
+
+/* Ensure the parent resizes dynamically */
+.project-content::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.text-panel {
+    position: relative;
+}
+
+.text-panel {
+    background-color: #303847a9;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 11.5pt;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.tag:hover, .text-panel:hover {
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.text-content.left {
+    order: -1;
+    text-align: left;
+    margin-right: -10%;
+}
+
+.text-content.right {
+    order: 1;
+    text-align: right;
+    margin-left: -10%;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1;
+    padding: 1em; /* Adjust padding as necessary */
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .project-img {
+        display: none;
+    }
+
+    .text-content {
+        /* Centre horizontally */
+        justify-content: center;
+        width: 100%;
+        
+    }
+
+    .text-panel {
+        /* font-size: calc(75% + 1vw); */
+        /* background-image: url("../../img/chess-in-c.png"); */
+        margin: 0 auto;
+        background-size: cover;
+        background-blend-mode: darken;
+        background-color: #202530d1;
+        /* width: 100%; */
+        /* Calculate height to fit 16:10 aspect ratio */
+        min-height: fit-content;
+        height: calc(45vw);
+        border: #25534300 solid 1px;
+        border-radius: 5px;
+    }
+
+    .text-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: var(--background-image); /* Change to the image path */
+        background-position: center;
+        filter: blur(3px) grayscale(100%) sepia(100%) hue-rotate(90deg) brightness(0.6);
+        background-color: #00ffaa;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        opacity: 0.5;
+        z-index: -1;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .text-panel:hover::before {
+        filter: none;
+        background-color: #ffffff00;
+        transition: all 0.2s ease-in-out;
+    }
+
+
+    .text-content.left,
+    .text-content.right {
+        margin-left: 0;
+        margin-right: 0;
+        order: -1;
+    }
+}
+
+.technologies-pill {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 1rem;
+    max-width: 75%;
+}
+
+.technologies-pill.right {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.pill {
+    font-family: 'Source Code Pro';
+    background-color: #25534345;
+    color: #7fffd4;
+    padding: .25rem .7rem .25rem .7rem;
+    border-radius: 20px;
+    font-size: 9pt;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease-in-out;
+    user-select: none;
+}
+
+.pill:hover {
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    color: #95fad8;
+    cursor: default;
+}

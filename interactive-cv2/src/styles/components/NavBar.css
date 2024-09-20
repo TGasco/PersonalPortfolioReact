@@ -1,0 +1,154 @@
+/* Stylesheet for NavBar component */
+
+
+.navbar {
+  /* Remove list styles */
+  /* list-style-type: none;
+  display: flex; /* This will make the list items display inline */
+  /* flex-direction: row; This will align the items in a row */
+  /* justify-content: space-around; This will distribute the items evenly */
+  height: 50px;
+  width: 100%;
+  background-color: #1d212acc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  overflow: scroll;
+  backdrop-filter: blur(10px);
+  display: flex; /* Add this to make the navbar a flex container */
+  align-items: center; /* Add this to vertically center the items */
+  transform: translateY(0);
+  transition: all 0.2s ease-in-out;
+}
+  
+.navbar ul {
+display: flex; /* This will make the list items display inline */
+flex-direction: row; /* This will align the items in a row */
+justify-content: flex-end; /* This will align the items to the right */
+align-items: center; /* This will vertically align the items in the middle */
+list-style-type: none; /* Remove list styles */
+padding: 0 20px; /* Add 20px padding to the right */
+margin: 0; /* Remove margin */
+gap: 30px; /* Add space between items */
+}
+
+.navbar li {
+/* Style your list items here */
+  display: flex;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.2s ease-in-out;
+}
+
+.shadow {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.navbar a {
+  display: inline-block;
+  padding-bottom:2px;
+  background-image: linear-gradient(120deg, #7fffd4, #7fffd4);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s; /*change after the size immediately*/
+}
+
+.navbar a.active {
+  background-position: 100% 100%; /*OR bottom right*/
+  background-size: 100% 1px;
+}
+
+.navbar a:hover {
+  background-position: 100% 100%; /*OR bottom right*/
+  background-size: 100% 1px;
+}
+
+.navbar-hidden {
+  transform: translateY(-49px);
+}
+
+li.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+.dropdown-menu {
+  display: none;
+  gap: 10px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #1d212acc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  /* Hide the navbar menu and show the dropdown */
+  /* .navbar ul {
+    display: none;
+  }
+
+  .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+  } */
+  .navbar {
+    width: 100%;
+    overflow: scroll;
+    font-size: calc(7pt + 1vmin);
+  }
+}
+
+
+input {
+  display: none;
+}
+
+path {
+  fill: none;
+  stroke: #7fffd4;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  --length: 24;
+  --offset: -38;
+  stroke-dasharray: var(--length) var(--total-length);
+  stroke-dashoffset: var(--offset);
+  transition: all .8s cubic-bezier(.645,.045,.355,1);
+}
+
+.cross input:checked + svg {
+  .line--1,
+  .line--3 {
+    --length: 22.627416998;
+  }
+  .line--2 {
+    --length: 0;
+  }
+}
+
+.menu--1 {
+  .line--1,
+  .line--3 {
+    --total-length: 126.64183044433594;
+  }
+  .line--2 {
+    --total-length: 70;
+  }
+  input:checked + svg {
+    .line--1,
+    .line--3 {
+      --offset: -94.1149185097;
+    }
+    .line--2 {
+      --offset: -50;
+    }
+  }
+}

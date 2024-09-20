@@ -1,0 +1,11 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Source Code Pro';
+    font-size: 9pt;
+    padding: .5rem 1rem;
+    backdrop-filter: blur(10px);
+    gap: .25rem;
+}

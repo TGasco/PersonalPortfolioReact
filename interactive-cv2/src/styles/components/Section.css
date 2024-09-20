@@ -1,0 +1,41 @@
+/* Stylesheet for the Section component */
+
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.section .section-title {
+    font-size: 18pt;
+    color: #c7ccd3;
+    /* font-family: 'Source Code Pro'; */
+}
+
+.section .section-title::after {
+    /* Display line separator inline with heading */
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: -0.5rem;
+    width: 33%;
+    height: 1px;
+    margin-left: 2rem;
+    background-color: #249f76;
+}
+
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.section.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}

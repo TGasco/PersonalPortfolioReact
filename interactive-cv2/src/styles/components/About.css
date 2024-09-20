@@ -1,0 +1,35 @@
+.about {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+/* Columns should be partitioned 60:40 */
+.about-img {
+    width: 30%;
+    transition: all 0.2s ease-in-out;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 70%;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Responsive Design: Mobile */
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+    }
+
+    .about-img {
+        width: 55%;
+        margin: auto;
+    }
+
+    .about-content {
+        width: 100%;
+    }
+}

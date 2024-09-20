@@ -1,0 +1,111 @@
+{
+    "config": {
+        "server": {
+            "url": "localhost:8080",
+            "https": true,
+            "endpoints": {
+                "v1": {
+                    "get": {
+                        "projects": "/api/v1/projects"
+                    }
+                }
+            }
+        }
+    },
+    "profile": {
+        "greeting": "Hello! I'm",
+        "name": "John Doe",
+        "subtitle": "Software Engineer",
+        "description": "I specialize in creating exceptional software experiences, from the inside out.",
+        "socialIcons": [
+            {
+                "url": "https://www.linkedin.com/in/johndoe",
+                "icon": "fab fa-linkedin-in"
+            },
+            {
+                "url": "https://github.com/johndoe",
+                "icon": "fab fa-github"
+            },
+            {
+                "url": "mailto:email@johndoe.com",
+                "icon": "fas fa-envelope"
+            }
+        ]
+    },
+    "section": {
+        "about": {
+            "sectionId": "about",
+            "title": "About Me",
+            "content": [[{"text": "Hi I'm John Doe, a Graduate Computer Scientist from the "}, {"text": "University of Example", "style": "highlight", "link": "https://www.example.com"}, {"text": ". I have a deep passion for full-stack software development and I am always looking to learn new skills and technologies."}],
+                        [{"text": "As a curious and creative individual, I have always had a fascination for understanding how things work. My introduction to programming through Scratch at an early age allowed me to create anything I could conceive. From games, calculators, to a virtual lemonade stand, my imagination ran wild with ideas - and I was hooked."}],
+                        [{"text": "Fast forward to today, I have recently graduated with a First Class Honours in Computer Science; I've built, updated and maintained core internal tools for a "}, {"text": "Tech Company", "style": "highlight", "link": "https://www.example.com"}, {"text": " and I continue to work on interesting projects to expand my skillset and knowledge."}]
+                        ],
+            "image": "profilePic.jpeg"
+        },
+        "experience": {
+            "sectionId": "experience",
+            "title": "Where I've Been",
+            "jobs": [
+                {
+                    "title": "Software Engineer",
+                    "company": "Example Tech",
+                    "link": "https://www.example.com",
+                    "duration": {
+                        "start": "2021-07-01",
+                        "end": "2022-07-31"
+                    },
+                    "description": ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt."],
+                    "technologies": ["Python", "React", "Node.js", "Perl", "CI/CD", "Atlassian", "SVN"]
+                },
+                {
+                    "title": "BSc Computer Science",
+                    "company": "University of Example",
+                    "link": "https://www.example.com",
+                    "duration": {
+                        "start": "2019-09-01",
+                        "end": "2023-07-30"
+                    },
+                    "description": ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt."],
+                    "technologies": ["Python", "JavaScript", "Java", "C", "C++", "C#", "SQL", "HTML", "CSS", "Node.js", "Git"]
+                }
+            ]
+        },
+        "projects": {
+            "sectionId": "projects",
+            "title": "Things I've Built",
+            "projects": [
+                {
+                    "title": "Sample Project 1",
+                    "description": "A sample project description.",
+                    "technologies": ["Node.js", "JavaScript", "HTML", "CSS"],
+                    "image": "sample-project-1.png",
+                    "source": "https://github.com/johndoe/sampleproject1",
+                    "featured": true
+                },
+                {
+                    "title": "Sample Project 2",
+                    "description": "A sample project description.",
+                    "technologies": ["React", "Node.js", "CSS", "AWS"],
+                    "image": "sample-project-2.png",
+                    "source": "https://github.com/johndoe/sampleproject2",
+                    "featured": true
+                },
+                {
+                    "title": "Sample Project 3",
+                    "description": "A sample project description.",
+                    "technologies": ["C", "SDL Renderer"],
+                    "image": "sample-project-3.png",
+                    "source": "https://github.com/johndoe/sampleproject3",
+                    "featured": true
+                }
+            ]
+        },
+        "contact": {
+            "sectionId": "contact",
+            "title": "Get in Touch",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt. Nullam nec nunc nec nisl aliquam tincidunt.",
+            "email": "email@johndoe.com"
+        }
+    },
+    "footer": "Designed and built by John Doe"
+}

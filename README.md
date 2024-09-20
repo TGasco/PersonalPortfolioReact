@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+~# Personal Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a personal portfolio website that I have created to showcase my projects and skills as a Software Engineer. The website is built using ReactJS and styled with CSS.
 
-## Available Scripts
+The website is a single-page application (SPWA) with a responsive design optimized for screens of all sizes. 
 
-In the project directory, you can run:
+The site is divided into several sections, including:  about me, experience, projects, and contact, which are navigable using the navigation bar at the top of the page.
 
-### `npm start`
+The live website is hosted on AWS and can be accessed [here](https://thomasgascoyne.com/home). Check it out!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Personally Identifiable Information (PII) has been removed and replaced by sample data.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Key Technologies Used
+- ReactJS (Frontend)
+- Node.js (Backend - mainly for API calls - it may also be used to serve the React App) [Optional]
+- AWS (Hosting [Optional])
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before you begin, make sure you have the following software installed on your machine:
 
-### `npm run build`
+- Node.js 14.x or newer
+- npm (usually comes with Node.js)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+git clone https://github.com/TGasco/PersonalPortfolio.git
+```
 
-### `npm run eject`
+2. Navigate to the project directory
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+cd interactive-cv2
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install the dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the development server
 
-## Learn More
+```
+npm run start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The website should now be running on [http://localhost:3000](http://localhost:3000).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API (Node.js) [Optional]
 
-### Code Splitting
+The React App may be used as a standalone SPWA, but it also has the capability to make API calls to a Node.js backend, namely to retrieve the data for the projects section.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The server creates a cron job that fetches data from the GitHub API every 24 hours and caches the data in memory. This data is then served to the React App when requested.
 
-### Analyzing the Bundle Size
+API endpoints arew defined in the `node-server/routes/index.js` file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Node Configuration [Optional]
 
-### Making a Progressive Web App
+1. Navigate to the `node-server` directory
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+cd node-server
+```
 
-### Advanced Configuration
+2. Install the dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+npm install
+```
 
-### Deployment
+3. Configure the Environment Variables [See Configuration]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. Start the Node.js server
 
-### `npm run build` fails to minify
+```
+npm run start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Node.js server should now be running on [http://localhost:8080](http://localhost:8080).
+
+## Configuration
+
+Page content is easily customizable by editing the `src/data/textData.js` file. This file contains all the data that is displayed on the website, including the sections and their content. Sample data has been provided to help you get started.
+
+Environment variables are used to configure the Node.js backend. These variables are to be stored in a `.env` file in the `node-server` directory. Please refer to the `.mockEnv` file for the required variables.
+Remember to replace the mock values with your own values, then rename the file to `.env`.
+
+## Deployment
+
+# Standalone Deployment
+To deploy the website, you can use the following command:
+
+```
+npm run build`
+```
+
+This will create a production build of the website in the `build` directory. You can then deploy this directory to your hosting provider of choice (e.g. AWS, Netlify, Vercel, etc.). AWS has been chosen for the live deployment of this website.
+
+
+# Integrated Deployment (Website + Node.js Backend)
+To create an integrated build of the website and the Node.js backend, you can use the following command:
+
+```
+npm run integrate
+```
+
+This will create a production build of the website and copy it to the `node-server` directory. You can then deploy the `node-server` directory to your hosting provider of choice.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

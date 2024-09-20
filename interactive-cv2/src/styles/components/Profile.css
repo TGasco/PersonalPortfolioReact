@@ -1,0 +1,77 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    height: 100vh;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* gap: .5rem; */
+}
+
+.hook {
+  margin-top: 1.25rem;
+}
+
+.greeting {
+  color: #7fffd4;
+  font-weight: 600;
+}
+
+/* Stylesheet for App component */
+.social-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  color: #656e7b;
+  font-size: 1.5rem;
+  transform: translate(0, 0);
+  transition: all 0.15s ease-in-out;
+}
+
+.social-icons a:hover {
+  color: #7fffd4;
+  transform: translate(0, -2px);
+}
+
+
+.profile-content .greeting,
+.profile-content .hook,
+.profile-content .title,
+.profile-content .subtitle
+{
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  /* .profile-content *.fade-in { */
+  .profile-content .greeting.fade-in,
+  .profile-content .hook.fade-in,
+  .profile-content .title.fade-in,
+  .profile-content .subtitle.fade-in
+  {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+.social-icons {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out
+}
+    
+.social-icons.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
