@@ -56,18 +56,6 @@
     box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-.text-content.left {
-    order: -1;
-    text-align: left;
-    margin-right: -10%;
-}
-
-.text-content.right {
-    order: 1;
-    text-align: right;
-    margin-left: -10%;
-}
-
 .text-content {
     display: flex;
     flex-direction: column;
@@ -75,6 +63,21 @@
     z-index: 1;
     padding: 1em; /* Adjust padding as necessary */
     width: 100%;
+}
+
+/* Assuming each Project component has a class name 'project' */
+.project:nth-child(even) .text-content {
+    /* Styles for projects on the left */
+    order: -1;
+    text-align: left;
+    margin-right: -10%;
+}
+
+.project:nth-child(odd) .text-content {
+    /* Styles for projects on the right */
+    order: 1;
+    text-align: right;
+    margin-left: -10%;
 }
 
 @media (max-width: 768px) {
@@ -86,7 +89,6 @@
         /* Centre horizontally */
         justify-content: center;
         width: 100%;
-        
     }
 
     .text-panel {
@@ -129,29 +131,28 @@
         transition: all 0.2s ease-in-out;
     }
 
-
-    .text-content.left,
-    .text-content.right {
+    .project:nth-child(even) .text-content,
+    .project:nth-child(odd) .text-content {
         margin-left: 0;
         margin-right: 0;
         order: -1;
     }
 }
 
-.technologies-pill {
+/* .technologies-pill {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     gap: 1rem;
     max-width: 75%;
-}
+} */
 
-.technologies-pill.right {
+.project:nth-child(odd) .technologies-pill {
     justify-content: flex-end;
     align-self: flex-end;
 }
 
-.pill {
+/* .pill {
     font-family: 'Source Code Pro';
     background-color: #25534345;
     color: #7fffd4;
@@ -159,7 +160,6 @@
     border-radius: 20px;
     font-size: 9pt;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
     transition: all 0.25s ease-in-out;
     user-select: none;
 }
@@ -169,4 +169,4 @@
     transform: translateY(-2px);
     color: #95fad8;
     cursor: default;
-}
+} */

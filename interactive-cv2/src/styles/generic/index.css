@@ -37,13 +37,14 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--background-color);
   /* background: linear-gradient(to top left, red, orange, yellow, green, blue, indigo, violet);
    */
-  background: linear-gradient(-155deg, var(--secondary-color), var(--background-color));
+  /* background: linear-gradient(-155deg, var(--secondary-color), var(--background-color));
   dither: true;
   background-size: 200% 200%;
   background-position: top left;
-  animation: smoothGradient 60s linear infinite;
+  animation: smoothGradient 60s linear infinite; */
 }
 
 @keyframes smoothGradient {
@@ -95,6 +96,12 @@ h2, h3 {
   color: var(--subtitle-color);
 }
 
+.experience-title {
+  font-size: 1.17em;
+  font-weight: bold;
+  color: var(--subtitle-color);
+}
+
 .main-body {
   margin: 0 auto;
   width: 75%;
@@ -105,6 +112,12 @@ h2, h3 {
   justify-content: center;
   gap: 2rem;
   padding: 2rem;
+}
+
+/* Loading for lazy images */
+.loading {
+  filter: blur(5px);
+  background-color: var(--secondary-color);
 }
 
 /* Responsive Design: Mobile */
@@ -146,6 +159,13 @@ h2, h3 {
 .heading {
   font-size: 2.5rem;
   color: var(--text-color);
+  transition: all 0.15s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .heading {
+    font-size: 2rem;
+  }
 }
 
 .highlight {
@@ -185,7 +205,7 @@ h2, h3 {
   transform: translate(-3px, -3px);
 }
 
-img {
+.image {
   width: 100%;
   height: auto;
   filter: grayscale(100%) sepia(100%) hue-rotate(90deg);
@@ -210,7 +230,7 @@ img {
   transform: translate(-8px, -8px);
 }
 
-img:hover {
+.image:hover {
   filter: grayscale(0%);
 }
 
@@ -254,4 +274,11 @@ img:hover {
   opacity: 1;
   transform: translateY(0);
   transition: opacity .5s ease-in-out, transform .5s ease-in-out;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: translate(0, 0);
+  transition: all 0.15s ease-in-out;
 }

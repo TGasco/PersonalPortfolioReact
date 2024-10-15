@@ -1,17 +1,4 @@
 {
-    "config": {
-        "server": {
-            "url": "localhost:8080",
-            "https": true,
-            "endpoints": {
-                "v1": {
-                    "get": {
-                        "projects": "/api/v1/projects"
-                    }
-                }
-            }
-        }
-    },
     "profile": {
         "greeting": "Hey there! I'm",
         "name": "Thomas Gascoyne",
@@ -20,15 +7,15 @@
         "socialIcons": [
             {
                 "url": "https://www.linkedin.com/in/thomas-gascoyne",
-                "icon": "fab fa-linkedin-in"
+                "icon": "linkedin-in-brands-solid"
             },
             {
                 "url": "https://github.com/TGasco",
-                "icon": "fab fa-github"
+                "icon": "github-brands-solid"
             },
             {
                 "url": "mailto:email@thomasgascoyne.com",
-                "icon": "fas fa-envelope"
+                "icon": "envelope-solid"
             }
         ]
     },
@@ -36,17 +23,22 @@
         "about": {
             "sectionId": "about",
             "title": "About Me",
-            "content": [[{"text": "Hi I'm Thomas Gascoyne, a Graduate Computer Scientist from the "}, {"text": "University of Liverpool", "style": "highlight", "link": "https://www.liverpool.ac.uk"}, {"text": ". I have a deep passion for full-stack software development and I am always looking to learn new skills and technologies."}],
-                        [{"text": "As a curious and creative individual, I have always had a fascination for understanding how things work. My introduction to programming through Scratch at an early age allowed me to create anything I could concieve. From games, calculators, to a virtual lemonade stand, my imagination ran wild with ideas - and I was hooked."}],
-                        [{"text": "Fast forward to today, I have recently graduated with a First Class Honours in Computer Science; I've built, updated and maintained core internal tools for a "}, {"text": "Games Development company", "style": "highlight", "link": "https://www.feralinteractive.com/"}, {"text": " and I continue to work on interesting projects to expand my skillset and knowledge."}],
-                        [{"text": "When I'm not at the computer, I enjoy hiking in the great outdoors and exploring new places with friends or alone. I'm also a keen chess player (albeit not the best)."}]
-                        ],
-            "image": "profilePic.jpeg"
+            "Component": "About",
+            "props": {
+                "content": [[{"text": "Hi I'm Thomas Gascoyne, a Graduate Computer Scientist from the "}, {"text": "University of Liverpool", "style": "highlight", "link": "https://www.liverpool.ac.uk"}, {"text": ". I have a deep passion for full-stack software development and I am always looking to learn new skills and technologies."}],
+                            [{"text": "As a curious and creative individual, I have always had a fascination for understanding how things work. My introduction to programming through Scratch at an early age allowed me to create anything I could concieve. From games, calculators, to a virtual lemonade stand, my imagination ran wild with ideas - and I was hooked."}],
+                            [{"text": "Fast forward to today, I have recently graduated with a First Class Honours in Computer Science; I've built, updated and maintained core internal tools for a "}, {"text": "Games Development company", "style": "highlight", "link": "https://www.feralinteractive.com/"}, {"text": " and I continue to work on interesting projects to expand my skillset and knowledge."}],
+                            [{"text": "When I'm not at the computer, I enjoy hiking in the great outdoors and exploring new places with friends or alone. I'm also a keen chess player (albeit not the best)."}]
+                            ],
+                "image": "profilePic",
+                "url": "https://thomasgascoyne.com"
+            }
         },
         "experience": {
             "sectionId": "experience",
             "title": "Where I've Been",
-            "jobs": [
+            "Component": "Experience",
+            "props": [
                 {
                     "title": "Development QA Engineer",
                     "company": "Feral Interactive",
@@ -78,39 +70,39 @@
         "projects": {
             "sectionId": "projects",
             "title": "Things I've Built",
-            "projects": [
-                {
-                    "title": "Self Hosted Cloud",
-                    "description": "A privacy-oriented cloud storage system, designed for intuitive and secure management of personal data. Upload and access your files from anywhere, with the peace of mind that your data is encrypted, secure and private. Preview images and documents directly from the browser.",
-                    "technologies": ["Node.js", "JavaScript", "HTML", "CSS"],
-                    "image": "self-hosted-cloud.png",
-                    "source": "https://github.com/TGasco/SelfHostedCloud",
-                    "featured": true
-                },
-                {
-                    "title": "Portfolio Page",
-                    "description": "You're looking at it! What do you think? A personal portfolio page, designed to showcase my skills and experience. Backend uses GitHub API to fetch my latest projects. Hosted on AWS.",
-                    "technologies": ["React", "Node.js", "CSS", "AWS"],
-                    "image": "portfolio-page.png",
-                    "source": "https://github.com/TGasco/PortfolioPage",
-                    "featured": true
-                },
+            "Component": "Project",
+            "props": [
                 {
                     "title": "Chess Engine in C",
                     "description": "An implementation of Chess in C, using SDL for rendering the board and pieces. Play against a friend or against the computer. Computer AI uses a simple minimax algorithm with alpha-beta pruning to make decisions. Features include move validation, checkmate detection, and castling",
                     "technologies": ["C", "SDL Renderer"],
-                    "image": "chess-in-c.png",
+                    "image": "chess-in-c",
                     "source": "https://github.com/TGasco/ChessInC",
+                    "featured": true
+                },
+                {
+                    "title": "Self Hosted Cloud",
+                    "description": "A privacy-oriented cloud storage system, designed for intuitive and secure management of personal data. Upload and access your files from anywhere, with the peace of mind that your data is encrypted, secure and private. Preview images and documents directly from the browser.",
+                    "technologies": ["Node.js", "JavaScript", "HTML", "CSS"],
+                    "image": "self-hosted-cloud",
+                    "source": "https://github.com/TGasco/SelfHostedCloud",
                     "featured": true
                 }
             ]
         },
         "contact": {
             "sectionId": "contact",
-            "title": "Get in Touch",
-            "content": "Intrigued? Want to work together? I'm always open to new opportunities and challenges. Feel free to drop me a message, and I'll get back to you as soon as I can!",
-            "email": "email@thomasgascoyne.com"
+            "Component": "Contact",
+            "props": {
+                "title": "Get in Touch",
+                "content": "Intrigued? Want to work together? I'm always open to new opportunities and challenges. Feel free to drop me a message, and I'll get back to you as soon as I can!",
+                "email": "email@thomasgascoyne.com"
+            }
         }
     },
-    "footer": "Designed and built by Thomas Gascoyne"
+    "footer": {
+        "text": "Designed and built by Thomas Gascoyne",
+        "license": "MIT License",
+        "sourceUrl": "https://github.com/TGasco"
+    }
 }

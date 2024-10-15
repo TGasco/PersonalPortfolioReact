@@ -36,7 +36,7 @@ gap: 30px; /* Add space between items */
 .navbar li {
 /* Style your list items here */
   display: flex;
-  opacity: 0;
+  opacity: 0.01;
   transform: translateY(-20px);
   transition: all 0.2s ease-in-out;
 }
@@ -76,6 +76,10 @@ li.visible {
   transform: translateY(0);
 }
 
+li.resume-button {
+  float: right;
+}
+
 /* Responsive adjustments */
 .dropdown-menu {
   display: none;
@@ -91,18 +95,24 @@ li.visible {
 
 @media (max-width: 768px) {
   /* Hide the navbar menu and show the dropdown */
-  /* .navbar ul {
-    display: none;
-  }
-
-  .dropdown-menu {
-    display: flex;
-    flex-direction: column;
-  } */
   .navbar {
     width: 100%;
-    overflow: scroll;
+    overflow: hidden;
     font-size: calc(7pt + 1vmin);
+  }
+
+}
+
+@media (max-width: 500px) {
+  /* Evenly space list items */
+  .navbar ul {
+    justify-content: space-between; /* This will distribute the items evenly across the width */
+    width: 100%; /* Ensure the ul takes the full width of the navbar */
+    padding: 0 10px; /* Adjust padding as needed */
+  }
+
+  li.resume-button {
+    display: none;
   }
 }
 

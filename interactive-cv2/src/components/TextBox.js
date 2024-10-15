@@ -1,7 +1,25 @@
+// TextBox.js
+// This file contains the TextBox component.
+// Author: Thomas Gascoyne
+
+// ----------------- Imports -----------------
 import React from "react";
 
-function TextBox({ text, styling="" }) {
+/**
+ * The TextBox component.
+ * @param {*} text - The text for the TextBox component
+ * @param {string} styling - The styling for the TextBox component
+ * @returns {JSX.Element} The TextBox component
+ */
+const TextBox = ({ text, styling="" }) => {
 
+    // ----------------- Custom Functions -----------------
+
+    /**
+     * Get the type of text and return the appropriate JSX.
+     * @param {*} text 
+     * @returns {JSX.Element} The JSX element
+     */
     const getTextType = (text) => {
         // 3 Cases:
         // 1. text is a string - return a single paragraph
@@ -32,6 +50,8 @@ function TextBox({ text, styling="" }) {
                 return <p>{text}</p>;
         }
     }
+
+    // ----------------- Render -----------------
     return (
         <React.Fragment>
             {getTextType(text)}
@@ -39,4 +59,5 @@ function TextBox({ text, styling="" }) {
     );
 }
 
-export default TextBox;
+// ----------------- Export -----------------
+export default React.memo(TextBox);

@@ -1,4 +1,4 @@
-function dateToStr(date) {
+async function dateToStr(date) {
     /**
      * @param {Date} date
      * @returns {string}
@@ -18,7 +18,7 @@ function dateToStr(date) {
  * Calculates the duration between two dates and returns a string in the format "Month (truncated) Year - Month (truncated) Year".
  * Example: 01/01/2021 - 01/01/2022 -> "Jan '21 - Feb '22 | 1yr 1mo"
  */
-function calculateDateRange(start, end) {
+async function calculateDateRange(start, end) {
     
     // Edge case: if the end date is not provided, end date is 'Present' (current date)
     start = new Date(start);
@@ -37,8 +37,8 @@ function calculateDateRange(start, end) {
     const months = Math.floor(durationInMonths % 12);
 
     // Convert the dates to strings
-    const startDate = dateToStr(start);
-    const endDate = dateToStr(end);
+    const startDate = await dateToStr(start);
+    const endDate = await dateToStr(end);
 
     const dateRangeStr = `${startDate} - ${isPresent ? 'Present' : endDate}`;
     const durationStr = `${years}yr ${months === 0 ? '' : months + 'mo'}`;

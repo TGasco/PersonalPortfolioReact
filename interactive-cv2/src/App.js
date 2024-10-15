@@ -1,82 +1,151 @@
 // App.js
-import React, { useState, useRef, useEffect } from 'react';
+// This file contains the main App component that renders the entire application.
+// Author: Thomas Gascoyne
+
+// ----------------- Imports -----------------
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './styles/generic/App.css';
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
-import About from './components/About';
 import Section from './components/Section';
-import Experience from './components/Experience';
-import Project from './components/Project';
-import Contact from './components/Contact';
 import textData from './data/textData';
 import Footer from './components/Footer';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
+import { getImageUris, fetchFromS3 } from './api/fetchData';
 
-function App() {
-  // Retrieve sections by iterating through textData.section
+
+/**
+ * The main App component.
+ * @returns {JSX.Element} The main App component
+ */
+const App = () => {
+  // ----------------- State and Ref Hooks -----------------
+
+  // Use state hooks
+  const [intersecting, setIntersecting] = useState({});
+  const [isVisible, setIsVisible] = useState({});
+  const [appData, setTextData] = useState(textData);
+  
+  
+  // Use ref hooks
   const sections = Object.keys(textData.section);
   const sectionRefs = useRef(sections.reduce((refs, section) => {
     refs[section] = React.createRef();
     return refs;
   }, {}));
+  const prevIntersectingRef = useRef(intersecting);
+  
+  // Use custom hook to observe section visibility
+  useIntersectionObserver(sectionRefs, setIntersecting, 0.1);
 
-  const [intersecting, setIntersecting] = useState({});
-  const [projectData, setProjectData] = useState([]); // Initialize projectData with useState
+  // ----------------- Custom Functions -----------------
 
-  useIntersectionObserver(sectionRefs, setIntersecting);
+  /**
+   * Checks if all sections are visible.
+   * @returns {boolean} True if all sections are visible, false otherwise
+   */
+  const allSectionsVisible = useCallback(() => {
+    return sections.every(section => isVisible[section]);
+  }, [isVisible, sections]);
 
-  const server = textData.config.server.https ? 'https://'+textData.config.server.url : 'http://'+textData.config.server.url;
-  const endpoints = textData.config.server.endpoints;
-
+  /**
+   * Fetch project data from S3 bucket.
+   * Fallback to local data if the request fails.
+   * @returns {Promise<void>} A promise that resolves when the data is fetched
+   */
   const fetchProjectData = async () => {
-    const uri = `${server}${endpoints.v1.get.projects}`;
+    const bucket = process.env.REACT_APP_AWS_BUCKET;
+    const region = process.env.REACT_APP_AWS_REGION;
+    const key = process.env.REACT_APP_AWS_DATA_KEY;
     try {
-      console.log('Fetching project data from the server...');
-      const response = await fetch(uri);
-      // Check if the response is ok, otherwise fallback to local data
-      if (!response.ok) {
-        console.error('Failed to fetch project data from the server:', response.statusText);
+      const data = await fetchFromS3(bucket, region, key);
+      if (!data) {
+        console.error('Failed to fetch project data from S3');
         console.log('Falling back to local project data...');
-        setProjectData(textData.section.projects.projects); // Update projectData state
         return;
       }
-      const data = await response.json();
-      console.log('Project data:', data);
-      setProjectData(data); // Update projectData state
+      
+      // Prefetch image metadata
+      const updatedData = await Promise.all(data.map(async project => {
+        const urls = getImageUris(project.image);
+        return {
+            ...project,
+            image: { ...urls } // Create a new object reference for image
+        };
+    }));
+    textData.section.projects.props = updatedData;
+    setTextData(textData); // Update projectData state
     } catch (error) {
       
       console.error('Network error:', error);
       console.log('Falling back to local project data...');
-      
-      fetchLocalData();
+      return null;
     }
   };
 
-  const fetchLocalData = () => {
-    // Create a context for the images directory
-    const imagesContext = require.context('./img', false, /\.(png|jpe?g|svg)$/);
-    
-    // Import images dynamically using the context
-    textData.section.projects.projects.forEach(project => {
-      try {
-        project.image = imagesContext(`./${project.image}`);
-      } catch (err) {
-        console.error(`Image not found: ${project.image}`, err);
-      }
-    });
-    
-    setProjectData(textData.section.projects.projects); // Update projectData state
-  };
+  // ----------------- useEffect Hooks -----------------
+
+  // Use effect hook to update section visibility
+  useEffect(() => {
+    if (allSectionsVisible()) {
+      return; // Skip if all sections are visible
+    }
+
+    if (prevIntersectingRef.current !== intersecting) {
+      // If all sections are visible, return early
+        setIsVisible(prevState => ({
+          ...prevState,
+          ...intersecting
+        }));
+      prevIntersectingRef.current = intersecting;
+    }
+      
+  }, [intersecting, sections]);
+
 
   // On load API requests
   // Request project data from the server on component mount
   useEffect(() => {
-    // Note: Replace `fetchProjectData()` with the following code to use local data (for static websites):
-    // Alternatively, local data is used as a fallback if the server request fails, though this is not recommended for production.
-    // fetchLocalData();
-
       fetchProjectData();
-    }, []);
+  }, []);
+
+  // ----------------- Render -----------------
+
+  /**
+   * Render the sections based on the text data.
+   * @returns {JSX.Element[]} An array of JSX elements representing the sections
+   */
+  const renderSections = useCallback(() => {
+    return sections.map((section, idx) => {
+      const sectionData = appData.section[section];
+      
+      if (!sectionData) return null; // Skip if section data is missing
+      
+      const { sectionId, title, Component, props } = sectionData;
+      try {
+        // Dynamically import the component
+        const component = require(`./components/${Component}`).default;
+  
+        return (
+          <Section key={idx} 
+            id={sectionId}
+            title={title}
+            ref={sectionRefs.current[sectionId]}
+            isVisible={isVisible[sectionId] || false}
+            sectionId={sectionId}
+          >
+            {/* Handle array or single props */}
+            {Array.isArray(props) ? props.map((prop, idx) => {
+              return React.createElement(component, { ...prop, key: idx });
+            }) : React.createElement(component, { ...props })}
+          </Section>
+        );
+      } catch (error) {
+        console.error(`Failed to render section ${sectionId}:`, error);
+        return null; // Return null to prevent crashing if an error occurs
+      }
+    });
+  }, [appData, isVisible]);
 
 
   return (
@@ -90,67 +159,14 @@ function App() {
         subtitle={textData.profile.subtitle}
         hook={textData.profile.description}
         socialIcons={textData.profile.socialIcons} />
+        {/* Render the Sections */}
+        {renderSections()}
 
-        {/* About */}
-        <Section title={textData.section.about.title}
-        id={textData.section.about.sectionId}
-        isVisible={intersecting[textData.section.about.sectionId] || false}
-        ref={sectionRefs.current[textData.section.about.sectionId]}
-        sectionId={textData.section.about.sectionId}>
-          <About text={textData.section.about.content}
-          profileImg={require(`./img/${textData.section.about.image}`)}>
-          </About>
-        </Section>
-
-        {/* Experience */}
-        <Section title={textData.section.experience.title}
-        id={textData.section.experience.sectionId}
-        isVisible={intersecting[textData.section.experience.sectionId] || false}
-        ref={sectionRefs.current[textData.section.experience.sectionId]}
-        sectionId={textData.section.experience.sectionId}
-        children={
-          textData.section.experience.jobs.map((job, idx) => (
-            <Experience
-            key={idx}
-            jobsObj={job}
-            />
-          ))
-        }>
-        </Section>
-
-        {/* Projects */}
-        <Section title={textData.section.projects.title}
-        id={textData.section.projects.sectionId}
-        isVisible={intersecting[textData.section.projects.sectionId] || false}
-        ref={sectionRefs.current[textData.section.projects.sectionId]}
-        sectionId={textData.section.projects.sectionId}
-        children={
-          projectData.map((project, idx) => (
-            <Project
-            key={idx}
-            projectObj={project}
-            pos={idx%2===0 ? 'left' : 'right'}
-            />
-          ))
-        }
-        >
-        </Section>
-
-        {/* Contact */}
-        <Section
-        id={textData.section.contact.sectionId}
-        isVisible={intersecting[textData.section.contact.sectionId] || false}
-        ref={sectionRefs.current[textData.section.contact.sectionId]}
-        sectionId={textData.section.contact.sectionId}>
-          <Contact
-          text={textData.section.contact.content}
-          email={textData.section.contact.email}></Contact>
-        </Section>
-
-        <Footer text={textData.footer}></Footer>
+        <Footer props={textData.footer}></Footer>
       </div>
     </div>
   );
 }
 
+// ----------------- Export -----------------
 export default App;
