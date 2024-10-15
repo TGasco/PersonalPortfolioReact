@@ -48,6 +48,12 @@ npm install
 npm run start
 ```
 
+OR
+
+```
+npm run start-https
+```
+
 The website should now be running on [http://localhost:3000](http://localhost:3000).
 
 ## API (Node.js) [Optional]
@@ -56,7 +62,7 @@ The React App may be used as a standalone SPWA, but it also has the capability t
 
 The server creates a cron job that fetches data from the GitHub API every 24 hours and caches the data in memory. This data is then served to the React App when requested.
 
-API endpoints arew defined in the `node-server/routes/index.js` file.
+API endpoints are defined in the `node-server/routes/index.js` file.
 
 # Node Configuration [Optional]
 

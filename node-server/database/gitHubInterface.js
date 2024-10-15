@@ -58,8 +58,8 @@ async function fetchPortfolioData(user) {
           const imgData = Buffer.from(imageResponse.content, 'base64'); // Decode base64 image content
 
           // Convert the decoded image content to a Data URL
-          const imgDataUrl = `data:image/png;base64,${imgData.toString('base64')}`;
-          data.image = imgDataUrl; // Replace the image URL with the Data URL
+          // const imgDataUrl = `data:image/png;base64,${imgData.toString('base64')}`;
+          data.imageBuffer = imgData; // Replace the image URL with the Data URL
           data.source = `https://github.com/${user}/${repo.name}`; // Add the source URL
 
           return data;
@@ -80,12 +80,15 @@ async function fetchPortfolioData(user) {
   }
 }
 
-// Use Environment Variables to retrieve the GitHub username
-// fetchPortfolioData(process.env.GITHUB_USER).then(portfolioData => {
-// // Update your portfolio with the fetched data
-//   console.log("Portfolio Data:");
-//   console.log(portfolioData);
-// });
+function main() {
+  const user = process.env.GITHUB_USER;
+  fetchPortfolioData(user).then(portfolioData => {
+    console.log('Portfolio Data:');
+    console.log(portfolioData);
+  });
+}
+
+main(); // Uncomment to run the main function (for testing)
 
 // Export the fetchPortfolioData function
 module.exports = { fetchPortfolioData };
