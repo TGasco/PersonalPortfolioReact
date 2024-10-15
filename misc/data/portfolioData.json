@@ -3,6 +3,6 @@
     "description": "You're looking at it! What do you think? A personal portfolio page, designed to showcase my skills and experience. Backend uses GitHub API to fetch my latest projects. Hosted on AWS.",
     "technologies": ["React", "Node.js", "CSS", "AWS"],
     "image": "portfolio-page.png",
-    "source": "https://github.com/TGasco/PortfolioPage",
+    "source": "https://github.com/TGasco/PersonalPortfolioReact",
     "featured": true
 }
