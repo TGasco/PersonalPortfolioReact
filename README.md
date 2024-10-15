@@ -1,4 +1,4 @@
-~# Personal Portfolio Website
+# Personal Portfolio Website
 
 This is a personal portfolio website that I have created to showcase my projects and skills as a Software Engineer. The website is built using ReactJS and styled with CSS.
 
