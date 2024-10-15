@@ -46,6 +46,7 @@ const Project = (props) => {
             // Set local image as background
             try {
                 const image = getLocalImagePath(props.image, 'jpg', 'small');
+                if (!image) return;
                 setTextPanelStyle({
                     '--background-image': `url(${image})`
                 });
