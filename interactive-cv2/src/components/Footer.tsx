@@ -1,4 +1,4 @@
-// Footer.js
+// Footer.tsx
 // This file contains the Footer component.
 // Author: Thomas Gascoyne
 
@@ -6,17 +6,19 @@
 import React from "react";
 import "../styles/components/Footer.css";
 
+// Define the props interface for the Footer component
+interface FooterProps {
+    text: string;
+    license: string;
+    sourceUrl: string;
+}
+
 /**
  * The Footer component.
- * @param {*} props - The props for the Footer component
- * @param {string} props.text - The text for the Footer component
- * @param {string} props.license - The license type for the Footer component
- * @param {string} props.sourceUrl - The source URL for the Footer component
  * @returns {JSX.Element} The Footer component.
  */
-const Footer = ({ props }) => {
+const Footer: React.FC<FooterProps> = ({ text, license, sourceUrl }) => {
     // ----------------- Constants -----------------
-    const {text, license, sourceUrl} = props;
     const date = new Date();
     const year = date.getFullYear();
 
@@ -27,13 +29,12 @@ const Footer = ({ props }) => {
             <p>
                 Operating under the {license} © {year}
             </p>
-            <a href={sourceUrl} target="_blank" rel="noreferrer"
-            className="highlight">
+            <a href={sourceUrl} target="_blank" rel="noreferrer" className="highlight">
                 <p>view source</p>
             </a>
         </footer>
     );
-}
+};
 
 // ----------------- Export -----------------
 export default React.memo(Footer);

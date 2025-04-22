@@ -4,7 +4,13 @@ import './styles/generic/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Ensure the element with id 'root' exists and is not null
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error("Root element not found. Make sure there is an element with id 'root' in your HTML.");
+}
+
+const root = ReactDOM.createRoot(rootElement as HTMLElement);
 root.render(
   <React.StrictMode>
     <App />

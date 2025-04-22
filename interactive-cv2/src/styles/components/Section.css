@@ -29,13 +29,33 @@
     background-color: #249f76;
 }
 
-.section {
+/* .section {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+} */
 
-.section.fade-in {
+section *:not(.img-container *) {
+    opacity: 0;
+  }
+
+/* .section.fade-in {
     opacity: 1;
     transform: translateY(0);
-}
+} */
+
+/* start everything hidden/offscreen */
+.section .stagger-fade {
+    /* define the animation but don’t start it until the class is added */
+    animation: fadeIn 300ms ease-out forwards;
+  }
+  
+  /* keyframes for fade + slide-up */
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

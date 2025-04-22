@@ -1,4 +1,4 @@
-// Experience.js
+// Experience.tsx
 // This file contains the Experience component.
 // Author: Thomas Gascoyne
 
@@ -9,20 +9,27 @@ import TechnologiesList from './TechnologiesList';
 import "../styles/components/TechnologiesList.css";
 import { calculateDateRange } from "../helper/dateToStr";
 
+// Define the props interface for the Experience component
+interface ExperienceProps {
+    title: string;
+    company: string;
+    link: string;
+    duration: {
+        start: Date | string;
+        end?: Date | string;
+    };
+    description: string | string[];
+    technologies: string[];
+}
+
 /**
  * The Experience component.
- * @param {*} props - The props for the Experience component
- * @param {string} props.title - The title for the Experience component
- * @param {string} props.company - The company for the Experience component
- * @param {string} props.link - The link for the Experience component
- * @param {string} props.duration - The duration for the Experience component
- * @param {string} props.description - The description for the Experience component
- * @param {string[]} props.technologies - The technologies for the Experience component
+ * @param {ExperienceProps} props - The props for the Experience component
  * @returns {JSX.Element} The Experience component
  */
-const Experience = (props) => {
+const Experience: React.FC<ExperienceProps> = (props) => {
     // ----------------- State and Ref Hooks -----------------
-    const [duration, setDuration] = useState('Jan 24 - Jan 24 | 0yr 0mo');
+    const [duration, setDuration] = useState<string>('Jan 24 - Jan 24 | 0yr 0mo');
 
     // ----------------- Custom Functions -----------------
     const fetchDuration = useCallback(async () => {
@@ -30,10 +37,10 @@ const Experience = (props) => {
         setDuration(prevDuration => (prevDuration !== calculatedDuration ? calculatedDuration : prevDuration));
     }, [props.duration.start, props.duration.end]);
 
-    // -----------------  useEffects -----------------
+    // ----------------- useEffects -----------------
     useEffect(() => {
         fetchDuration();
-    }, []);
+    }, [fetchDuration]);
 
     // ----------------- Render -----------------
     return (

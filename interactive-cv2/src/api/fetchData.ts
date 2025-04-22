@@ -1,4 +1,4 @@
-// fetchData.js
+// fetchData.ts
 // This file contains functions to fetch image data from the server or local storage.
 // Author: Thomas Gascoyne
 
@@ -12,89 +12,84 @@ import cacheManager from './cacheReq';
  * @param {string} src - The image source
  * @param {string} format - The image format (jpg, webp, avif)
  * @param {string} size - The image size (small, medium, large)
- * @returns {string} The local image path
+ * @returns {string | null} The local image path
  */
-const getLocalImagePath = (src, format, size) => {
+const getLocalImagePath = (src: string, format: string, size: string): string | null => {
     const imgRoot = `${process.env.REACT_APP_ASSET_PATH}/${process.env.REACT_APP_IMAGE_PATH}`;
     const path = `../${imgRoot}/${format}/${size}/${src}-${size}.${format}`;
 
     // Try to retrieve from cache
     const cachedData = cacheManager.get(path);
     if (cachedData) {
-        // console.log('Using cached data:', cachedData);
         return cachedData;
     }
 
     try {
-    const image = require(`../${imgRoot}/${format}/${size}/${src}-${size}.${format}`);
-    // Cache the image
-    cacheManager.set(path, image);
-    return image;
-
+        const image = require(`../${imgRoot}/${format}/${size}/${src}-${size}.${format}`);
+        // Cache the image
+        cacheManager.set(path, image);
+        return image;
     } catch (error) {
-    // console.error("Local image not found:", error);
-    return null;
+        return null;
     }
 };
 
 /**
  * Fetch image metadata from the external server.
  * @param {string} src - The image source
- * @returns {Promise<Object>} A promise that resolves with the image metadata
+ * @returns {Promise<string[]>} A promise that resolves with the image metadata URLs
  */
-const fetchImageUri = async (src) => {
-  const server = getServerUrl();
-  const uri = `${server}/api/v1/image/${src}/metadata`; // API endpoint for image metadata
+const fetchImageUri = async (src: string): Promise<string[]> => {
+    const server = getServerUrl();
+    const uri = `${server}/api/v1/image/${src}/metadata`; // API endpoint for image metadata
 
-  // Check if the data is already cached
-  const cachedData = cacheManager.get(uri);
-  if (cachedData) {
-    // console.log('Using cached data:', cachedData);
-    return cachedData.urls;
-  } else {
-    console.log('Fetching image metadata from the server...');
-  }
+    // Check if the data is already cached
+    const cachedData = cacheManager.get(uri);
+    if (cachedData) {
+        return cachedData.urls;
+    }
 
-  // If not cached, fetch from the server
-  const response = await fetch(uri);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image metadata: ${response.statusText}`);
-  }
+    const response = await fetch(uri);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch image metadata: ${response.statusText}`);
+    }
 
-  const metadata = await response.json();
+    const metadata = await response.json();
 
-  // Cache the response
-  cacheManager.set(uri, metadata);
+    // Cache the response
+    cacheManager.set(uri, metadata);
 
-  return metadata.urls; // Returns pre-signed URLs for different formats and sizes
+    return metadata.urls; // Returns pre-signed URLs for different formats and sizes
 };
 
 /**
  * Get the S3 URI for a given bucket, region, and key.
- * @param {*} bucket - The S3 bucket name
- * @param {*} region - The S3 region
- * @param {*} key - The S3 object key
+ * @param {string} bucket - The S3 bucket name
+ * @param {string} region - The S3 region
+ * @param {string} key - The S3 object key
  * @returns {string} The S3 URI
  */
-const getS3Uri = (bucket, region, key) => {
+const getS3Uri = (bucket: string, region: string, key: string): string => {
     return `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
-}
+};
 
 /**
  * Get the image URIs for different formats and sizes.
  * @param {string} filename - The filename of the image
- * @returns {Object} The image URIs for different formats and sizes
+ * @returns {Record<string, Record<string, string>>} The image URIs for different formats and sizes
  */
-const getImageUris = (filename) => {
+const getImageUris = (filename: string): Record<string, Record<string, string>> => {
     const sizes = ['small', 'medium', 'large'];
     const formats = ['jpg', 'webp', 'avif'];
-    const urls = {};
+    const urls: Record<string, Record<string, string>> = {};
+
     formats.forEach(format => {
         urls[format] = {};
         sizes.forEach(size => {
             urls[format][size] = getImageUri(filename, format, size);
         });
     });
+
     return urls;
 };
 
@@ -105,35 +100,30 @@ const getImageUris = (filename) => {
  * @param {string} size 
  * @returns {string} The image URI
  */
-const getImageUri = (filename, format, size) => {
-    const bucket = process.env.REACT_APP_AWS_BUCKET;
-    const region = process.env.REACT_APP_AWS_REGION;
+const getImageUri = (filename: string, format: string, size: string): string => {
+    const bucket = process.env.REACT_APP_AWS_BUCKET!;
+    const region = process.env.REACT_APP_AWS_REGION!;
     return getS3Uri(bucket, region, `img/${format}/${size}/${filename}-${size}.${format}`);
-}
+};
 
 /**
  * Fetch data from S3 using the given bucket, region, and key.
- * @param {*} bucket - The S3 bucket name
- * @param {*} region - The S3 region
- * @param {*} key - The S3 object key
- * @returns {Promise<*>} A promise that resolves with the fetched data
+ * @param {string} bucket - The S3 bucket name
+ * @param {string} region - The S3 region
+ * @param {string} key - The S3 object key
+ * @returns {Promise<any>} A promise that resolves with the fetched data
  */
-const fetchFromS3 = async (bucket, region, key) => {
+const fetchFromS3 = async (bucket: string, region: string, key: string): Promise<any> => {
     const uri = getS3Uri(bucket, region, key);
 
     // Check if the data is already cached
     const cachedData = cacheManager.get(uri);
     if (cachedData) {
-        console.log('Using cached data:', cachedData);
         return cachedData;
-    } else {
-        console.log('Fetching data from S3...');
     }
 
     const response = await fetch(uri);
     if (!response.ok) {
-        console.error(`Failed to fetch data from S3: ${response.statusText}`);
-        // Fallback to local data
         return null;
     }
 
@@ -147,11 +137,10 @@ const fetchFromS3 = async (bucket, region, key) => {
 
 /**
  * Parse the response data based on the content type.
- * @param {*} response - The response object
- * @returns {Promise<*>} The parsed response data
+ * @param {Response} response - The response object
+ * @returns {Promise<any>} The parsed response data
  */
-const parseResponse = async (response) => {
-    // Handle different types of data
+const parseResponse = async (response: Response): Promise<any> => {
     const contentType = response.headers.get('content-type');
     switch (contentType) {
         case 'application/json':
@@ -160,7 +149,6 @@ const parseResponse = async (response) => {
         case 'image/png':
         case 'image/webp':
         case 'image/avif':
-            return await response.blob();
         case 'application/pdf':
             return await response.blob();
         default:
@@ -168,7 +156,11 @@ const parseResponse = async (response) => {
     }
 };
 
-const getServerUrl = () => {
+/**
+ * Get the server URL based on environment variables.
+ * @returns {string} The server URL
+ */
+const getServerUrl = (): string => {
     const protocol = process.env.REACT_APP_SERVER_HTTPS ? 'https' : 'http';
     if (process.env.REACT_APP_PRODUCTION) {
         return `${protocol}://${process.env.REACT_APP_SERVER_PROD_URL}`;

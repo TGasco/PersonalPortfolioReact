@@ -56,16 +56,16 @@
   }
   
   /* .profile-content *.fade-in { */
-  .profile-content .greeting.fade-in,
+  /* .profile-content .greeting.fade-in,
   .profile-content .hook.fade-in,
   .profile-content .title.fade-in,
   .profile-content .subtitle.fade-in
   {
     opacity: 1;
     transform: translateY(0);
-  }
+  } */
 
-.social-icons {
+/* .social-icons {
       opacity: 0;
       transform: translateY(-10px);
       transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out
@@ -74,4 +74,4 @@
 .social-icons.fade-in {
   opacity: 1;
   transform: translateY(0);
-}
+} */

@@ -1,29 +1,35 @@
 {
-    "profile": {
-        "greeting": "Hey there! I'm",
-        "name": "Thomas Gascoyne",
-        "subtitle": "Graduate Software Engineer",
-        "description": "I specialise in creating exceptional software experiences, from the inside out.",
-        "socialIcons": [
-            {
-                "url": "https://www.linkedin.com/in/thomas-gascoyne",
-                "icon": "linkedin-in-brands-solid"
-            },
-            {
-                "url": "https://github.com/TGasco",
-                "icon": "github-brands-solid"
-            },
-            {
-                "url": "mailto:email@thomasgascoyne.com",
-                "icon": "envelope-solid"
-            }
-        ]
-    },
     "section": {
+        "profile": {
+            "sectionId": "profile",
+            "Component": "Profile",
+            "navbar": false,
+            "props": {
+                "greeting": "Hey there! I'm",
+                "name": "Thomas Gascoyne",
+                "subtitle": "Graduate Software Engineer",
+                "description": "I specialise in creating exceptional software experiences, from the inside out.",
+                "socialIcons": [
+                    {
+                        "url": "https://www.linkedin.com/in/thomas-gascoyne",
+                        "icon": "linkedin-in-brands-solid"
+                    },
+                    {
+                        "url": "https://github.com/TGasco",
+                        "icon": "github-brands-solid"
+                    },
+                    {
+                        "url": "mailto:email@thomasgascoyne.com",
+                        "icon": "envelope-solid"
+                    }
+                ]
+            }
+        },
         "about": {
             "sectionId": "about",
             "title": "About Me",
             "Component": "About",
+            "navbar": true,
             "props": {
                 "content": [[{"text": "Hi I'm Thomas Gascoyne, a Graduate Computer Scientist from the "}, {"text": "University of Liverpool", "style": "highlight", "link": "https://www.liverpool.ac.uk"}, {"text": ". I have a deep passion for full-stack software development and I am always looking to learn new skills and technologies."}],
                             [{"text": "As a curious and creative individual, I have always had a fascination for understanding how things work. My introduction to programming through Scratch at an early age allowed me to create anything I could concieve. From games, calculators, to a virtual lemonade stand, my imagination ran wild with ideas - and I was hooked."}],
@@ -38,6 +44,7 @@
             "sectionId": "experience",
             "title": "Where I've Been",
             "Component": "Experience",
+            "navbar": true,
             "props": [
                 {
                     "title": "Development QA Engineer",
@@ -71,6 +78,7 @@
             "sectionId": "projects",
             "title": "Things I've Built",
             "Component": "Project",
+            "navbar": true,
             "props": [
                 {
                     "title": "Chess Engine in C",
@@ -93,16 +101,22 @@
         "contact": {
             "sectionId": "contact",
             "Component": "Contact",
+            "navbar": true,
             "props": {
                 "title": "Get in Touch",
                 "content": "Intrigued? Want to work together? I'm always open to new opportunities and challenges. Feel free to drop me a message, and I'll get back to you as soon as I can!",
                 "email": "email@thomasgascoyne.com"
             }
+        },
+        "footer": {
+            "sectionId": "footer",
+            "Component": "Footer",
+            "navbar": false,
+            "props": {
+                "text": "Designed and built by Thomas Gascoyne",
+                "license": "MIT License",
+                "sourceUrl": "https://github.com/TGasco"
+            }
         }
-    },
-    "footer": {
-        "text": "Designed and built by Thomas Gascoyne",
-        "license": "MIT License",
-        "sourceUrl": "https://github.com/TGasco"
     }
 }

@@ -1,16 +1,21 @@
-// TechnologiesList.js
+// TechnologiesList.tsx
 // This file contains the TechnologiesList component.
 // Author: Thomas Gascoyne
 
 // ----------------- Imports -----------------
 import React from "react";
 
+// ----------------- Types -----------------
+interface TechnologiesListProps {
+    technologies: string[];
+}
+
 /**
  * The TechnologiesList component.
- * @param {*} technologies - The technologies for the TechnologiesList component
+ * @param {TechnologiesListProps} props - The props for the TechnologiesList component
  * @returns {JSX.Element} The TechnologiesList component
  */
-const TechnologiesList = ({ technologies }) => {
+const TechnologiesList: React.FC<TechnologiesListProps> = ({ technologies }) => {
     // ----------------- Render -----------------
     return (
         <React.Fragment>
@@ -23,7 +28,7 @@ const TechnologiesList = ({ technologies }) => {
             </ul>
         </React.Fragment>
     );
-}
+};
 
 // ----------------- Export -----------------
 export default React.memo(TechnologiesList);
